@@ -1,4 +1,4 @@
-import sys
+import sys, random
 import pygame as pg
 
 # Initialize PyGame
@@ -56,14 +56,16 @@ while 1:
     if keyinput[pg.K_DOWN] and paddlerect.bottom <= height - 10:
         paddlerect = paddlerect.move([0, speed])
 
-    # Opponent movement - FIX THIS!! It's broken atm
-    if 10 < opprect.top < height - 110:
-        if opprect.top < ballrect.top:
-            oppspeed[1] = speed
-            opprect = opprect.move(oppspeed)
-        else:
-            oppspeed[1] = -speed
-            opprect = opprect.move(oppspeed)
+    # Opponent movement
+    oppcenter = opprect.top + 50
+    ballcenter = ballrect.top + 5
+    offset = random.randint(100, 150)
+    if oppcenter < ballcenter - offset and opprect.bottom < height:
+        oppspeed[1] = speed
+        opprect = opprect.move(oppspeed)
+    elif oppcenter > ballcenter + offset and opprect.top > 0:
+        oppspeed[1] = -speed
+        opprect = opprect.move(oppspeed)
 
     # Ball movement
     ballrect = ballrect.move(ballspeed)
