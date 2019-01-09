@@ -134,11 +134,28 @@ while 1:
             # Player misses ball -> game lost
             if ballrect.right > width:
                 lost = True
+                ballrect = pg.Rect(395, 295, 10, 10)
 
-        # Render graphics
-        screen.fill(black)
+            # Render graphics
+            screen.fill(black)
+            paddle.fill(white)
+            opp.fill(white)
+            ball.fill(white)
+            screen.blit(paddle, paddlerect)
+            screen.blit(opp, opprect)
+            screen.blit(ball, ballrect)
+            screen.blit(scoredisp, scorerect)
+            pg.display.flip()
 
-        if lost:
+        while lost:
+            pg.event.pump()
+            keyinput = pg.key.get_pressed()
+            if keyinput[pg.K_ESCAPE]:
+                sys.exit()
+            if keyinput[pg.K_RETURN]:
+                lost = False
+                break
+
             if score > highscore: highscore = score
 
             msg = text.render("You lost! Score: " + str(score), False, white)
@@ -153,16 +170,8 @@ while 1:
             parect = playagain.get_rect()
             parect = parect.move([width/2 - parect.width/2, height/2 - msgrect.height/2 + hsrect.height + parect.height + 60])
 
+            screen.fill(black)
             screen.blit(msg, msgrect)
             screen.blit(hsmsg,hsrect)
             screen.blit(playagain,parect)
-        else:
-            paddle.fill(white)
-            opp.fill(white)
-            ball.fill(white)
-            screen.blit(paddle, paddlerect)
-            screen.blit(opp, opprect)
-            screen.blit(ball, ballrect)
-            screen.blit(scoredisp, scorerect)
-
-        pg.display.flip()
+            pg.display.flip()
