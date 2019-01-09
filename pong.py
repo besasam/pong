@@ -22,12 +22,12 @@ scoredisp = text.render(str(score), False, white)
 scorerect = scoredisp.get_rect()
 scorerect = scorerect.move([width/2 - scorerect.width/2, 10])
 
-# Player paddle
-paddle = pg.Surface((10, 100))
-paddlerect = paddle.get_rect()
-paddlerect = paddlerect.move([760, 250])
+# Player paddel
+paddel = pg.Surface((10, 100))
+paddelrect = paddel.get_rect()
+paddelrect = paddelrect.move([760, 250])
 
-# Opponent paddle
+# Opponent paddel
 opp = pg.Surface((10, 100))
 opprect = opp.get_rect()
 opprect = opprect.move([30,250])
@@ -43,7 +43,7 @@ ballspeed = [speed, speed]
 while 1:
     clock.tick(20)
 
-    # Catch keystrokes (esc to exit, arrow up/down to move paddle)
+    # Catch keystrokes (esc to exit, arrow up/down to move paddel)
     pg.event.pump()
     keyinput = pg.key.get_pressed()
     if keyinput[pg.K_ESCAPE]: sys.exit()
@@ -51,10 +51,10 @@ while 1:
         if event.type == pg.QUIT:
             pg.quit()
             sys.exit()
-    if keyinput[pg.K_UP] and paddlerect.top >= 10:
-        paddlerect = paddlerect.move([0, -speed])
-    if keyinput[pg.K_DOWN] and paddlerect.bottom <= height - 10:
-        paddlerect = paddlerect.move([0, speed])
+    if keyinput[pg.K_UP] and paddelrect.top >= 10:
+        paddelrect = paddelrect.move([0, -speed])
+    if keyinput[pg.K_DOWN] and paddelrect.bottom <= height - 10:
+        paddelrect = paddelrect.move([0, speed])
 
     # Opponent movement - FIX THIS!! It's broken atm
     if 10 < opprect.top < height - 110:
@@ -70,8 +70,8 @@ while 1:
     # Bounce off upper/lower edge of screen
     if ballrect.top < 10 or ballrect.bottom > height - 10:
         ballspeed[1] = -ballspeed[1]
-    # Bounce off paddles
-    if ballrect.colliderect(paddlerect) or ballrect.colliderect(opprect):
+    # Bounce off paddels
+    if ballrect.colliderect(paddelrect) or ballrect.colliderect(opprect):
         ballspeed[0] = -ballspeed[0]
         ballspeed[1] = -ballspeed[1]
     # Opponent misses ball -> score increase, respawn ball at center
@@ -93,10 +93,10 @@ while 1:
         msgrect = msgrect.move([width/2 - msgrect.width/2, height/2 - msgrect.height/2])
         screen.blit(msg, msgrect)
     else:
-        paddle.fill(white)
+        paddel.fill(white)
         opp.fill(white)
         ball.fill(white)
-        screen.blit(paddle, paddlerect)
+        screen.blit(paddel, paddelrect)
         screen.blit(opp, opprect)
         screen.blit(ball, ballrect)
         screen.blit(scoredisp, scorerect)
