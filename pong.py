@@ -1,4 +1,5 @@
-import sys, random
+import sys
+import random
 import pygame as pg
 
 # Initialize PyGame
@@ -28,7 +29,8 @@ playrect = playrect.move([width/2 - playrect.width/2, titlerect.height + 40])
 
 exittext = text.render("Exit", False, white)
 exitrect = exittext.get_rect()
-exitrect = exitrect.move([width/2 - exitrect.width/2, titlerect.height + playrect.height + 50])
+exitrect = exitrect.move(
+    [width/2 - exitrect.width/2, titlerect.height + playrect.height + 50])
 
 selected = 0
 
@@ -48,7 +50,7 @@ paddlerect = paddlerect.move([760, 250])
 # Opponent paddle
 opp = pg.Surface((10, 100))
 opprect = opp.get_rect()
-opprect = opprect.move([30,250])
+opprect = opprect.move([30, 250])
 oppspeed = [0, speed]
 
 # Ball
@@ -62,7 +64,8 @@ while 1:
     if not playing:
         pg.event.pump()
         keyinput = pg.key.get_pressed()
-        if keyinput[pg.K_ESCAPE]: sys.exit()
+        if keyinput[pg.K_ESCAPE]:
+            sys.exit()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -76,14 +79,16 @@ while 1:
             exittext = text.render(">Exit", False, white)
             selected = 1
         if keyinput[pg.K_RETURN]:
-            if selected == 0: playing = True
-            else: sys.exit()
+            if selected == 0:
+                playing = True
+            else:
+                sys.exit()
 
         # Menu screen
         screen.fill(black)
-        screen.blit(title,titlerect)
-        screen.blit(playtext,playrect)
-        screen.blit(exittext,exitrect)
+        screen.blit(title, titlerect)
+        screen.blit(playtext, playrect)
+        screen.blit(exittext, exitrect)
         pg.display.flip()
 
     if playing:
@@ -92,7 +97,8 @@ while 1:
         # Catch keystrokes (esc to exit, arrow up/down to move paddle)
         pg.event.pump()
         keyinput = pg.key.get_pressed()
-        if keyinput[pg.K_ESCAPE]: sys.exit()
+        if keyinput[pg.K_ESCAPE]:
+            sys.exit()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -155,20 +161,23 @@ while 1:
                 lost = False
                 break
 
-            if score > highscore: highscore = score
+            if score > highscore:
+                highscore = score
 
             msg = text.render("You lost! Score: " + str(score), False, white)
             msgrect = msg.get_rect()
-            msgrect = msgrect.move([width/2 - msgrect.width/2, height/2 - msgrect.height/2])
+            msgrect = msgrect.move(
+                [width/2 - msgrect.width/2, height/2 - msgrect.height/2])
 
             hsmsg = text.render("Highscore: " + str(highscore), False, white)
             hsrect = hsmsg.get_rect()
-            hsrect = hsrect.move([width/2 - hsrect.width/2, height/2 - msgrect.height/2 + hsrect.height + 20])
+            hsrect = hsrect.move(
+                [width/2 - hsrect.width/2, height/2 - msgrect.height/2 + hsrect.height + 20])
 
             playagain = text.render("Play again? (Enter)", False, white)
             parect = playagain.get_rect()
-            parect = parect.move([width/2 - parect.width/2, height/2 - msgrect.height/2 + hsrect.height + parect.height + 60])
-
+            parect = parect.move([width/2 - parect.width/2, height/2 -
+                                  msgrect.height/2 + hsrect.height + parect.height + 60])
             screen.fill(black)
             screen.blit(msg, msgrect)
             screen.blit(hsmsg,hsrect)
