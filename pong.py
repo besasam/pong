@@ -54,10 +54,10 @@ opprect = opprect.move([30, 250])
 oppspeed = [0, speed]
 
 # Ball
-ball = pg.Surface((10, 10))
-ballrect = ball.get_rect()
+ballrect = pg.Surface((10, 10)).get_rect()
 ballrect = ballrect.move([395, 295])
 ballspeed = [speed, speed]
+ballimg = pg.transform.scale(pg.image.load('assets/green-pepper.png'), ballrect.size).convert_alpha()
 
 # Game code
 while 1:
@@ -146,10 +146,9 @@ while 1:
             screen.fill(black)
             paddle.fill(white)
             opp.fill(white)
-            ball.fill(white)
             screen.blit(paddle, paddlerect)
             screen.blit(opp, opprect)
-            screen.blit(ball, ballrect)
+            screen.blit(ballimg, ballrect)
             screen.blit(scoredisp, scorerect)
             pg.display.flip()
 
@@ -179,9 +178,8 @@ while 1:
             parect = playagain.get_rect()
             parect = parect.move([width/2 - parect.width/2, height/2 -
                                   msgrect.height/2 + hsrect.height + parect.height + 60])
-
             screen.fill(black)
             screen.blit(msg, msgrect)
-            screen.blit(hsmsg, hsrect)
-            screen.blit(playagain, parect)
+            screen.blit(hsmsg,hsrect)
+            screen.blit(playagain,parect)
             pg.display.flip()
