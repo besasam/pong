@@ -52,7 +52,7 @@ opprect = opprect.move([30,250])
 oppspeed = [0, speed]
 
 # Ball
-ballrect = pg.Surface((20, 20)).get_rect()
+ballrect = pg.Surface((10, 10)).get_rect()
 ballrect = ballrect.move([395, 295])
 ballspeed = [speed, speed]
 ballimg = pg.transform.scale(pg.image.load('assets/green-pepper.png'), ballrect.size).convert_alpha()
